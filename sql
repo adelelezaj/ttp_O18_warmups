@@ -31,3 +31,15 @@
 -- (using a CTE/subquery to return the number - eg. 1.99)
 
 -- CHECK OUT THE HINTS FILE IF YOU GET STUCK
+
+
+SELECT film_id, rental_rate, title,
+    CASE 
+    WHEN (rental_rate <= 1) THEN 0.10
+    WHEN (rental_rate >1  AND rental_rate <= 2) THEN 1.00
+    ELSE rental_rate
+    END AS new_rate
+FROM film
+WHERE rating = 'PG-13'
+GROUP BY film_id, title
+ORDER BY new_rate;
